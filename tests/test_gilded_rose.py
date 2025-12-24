@@ -5,12 +5,14 @@ from gilded_rose import Item, GildedRose
 
 
 class GildedRoseTest(unittest.TestCase):
-    def test_foo(self):
+    def test_update_quality_does_not_change_item_name(self):
         items = [Item("foo", 0, 0)]
-        gilded_rose = GildedRose(items)
-        gilded_rose.update_quality()
-        self.assertEqual("fixme", items[0].name)
+        app = GildedRose(items)
 
-        
+        app.update_quality()
+
+        self.assertEqual("foo", items[0].name)
+
+
 if __name__ == '__main__':
     unittest.main()
