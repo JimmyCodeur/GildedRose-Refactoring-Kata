@@ -1,5 +1,29 @@
 # -*- coding: utf-8 -*-
 
+def _is_aged_brie(item) -> bool:
+    return item.name == "Aged Brie"
+
+
+def _is_backstage(item) -> bool:
+    return item.name == "Backstage passes to a TAFKAL80ETC concert"
+
+
+def _is_sulfuras(item) -> bool:
+    return item.name == "Sulfuras, Hand of Ragnaros"
+
+
+def _increase_quality(item, amount: int = 1) -> None:
+    item.quality += amount
+    if item.quality > 50:
+        item.quality = 50
+
+
+def _decrease_quality(item, amount: int = 1) -> None:
+    item.quality -= amount
+    if item.quality < 0:
+        item.quality = 0
+
+
 class GildedRose(object):
 
     def __init__(self, items):
@@ -7,33 +31,37 @@ class GildedRose(object):
 
     def update_quality(self):
         for item in self.items:
-            if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
+
+            if (not _is_aged_brie(item)) and (not _is_backstage(item)):
                 if item.quality > 0:
-                    if item.name != "Sulfuras, Hand of Ragnaros":
-                        item.quality = item.quality - 1
+                    if not _is_sulfuras(item):
+                        _decrease_quality(item, 1)
             else:
                 if item.quality < 50:
-                    item.quality = item.quality + 1
-                    if item.name == "Backstage passes to a TAFKAL80ETC concert":
+                    _increase_quality(item, 1)
+
+                    if _is_backstage(item):
                         if item.sell_in < 11:
                             if item.quality < 50:
-                                item.quality = item.quality + 1
+                                _increase_quality(item, 1)
                         if item.sell_in < 6:
                             if item.quality < 50:
-                                item.quality = item.quality + 1
-            if item.name != "Sulfuras, Hand of Ragnaros":
+                                _increase_quality(item, 1)
+
+            if not _is_sulfuras(item):
                 item.sell_in = item.sell_in - 1
+
             if item.sell_in < 0:
-                if item.name != "Aged Brie":
-                    if item.name != "Backstage passes to a TAFKAL80ETC concert":
+                if not _is_aged_brie(item):
+                    if not _is_backstage(item):
                         if item.quality > 0:
-                            if item.name != "Sulfuras, Hand of Ragnaros":
-                                item.quality = item.quality - 1
+                            if not _is_sulfuras(item):
+                                _decrease_quality(item, 1)
                     else:
-                        item.quality = item.quality - item.quality
+                        item.quality = 0
                 else:
                     if item.quality < 50:
-                        item.quality = item.quality + 1
+                        _increase_quality(item, 1)
 
 
 class Item:
