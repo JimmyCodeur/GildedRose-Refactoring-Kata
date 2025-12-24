@@ -8,4 +8,5 @@ __pycache__/
 pycache/
 .pytest_cache/
 htmlcov/
-approved_files/*.received.txt
+.approval_tests_temp/
+tests/approved_files/*.received.txt
