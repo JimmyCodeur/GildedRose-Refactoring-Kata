@@ -1,0 +1,11 @@
+﻿*.pyc
+.cache
+.coverage
+.idea/
+*.iml
+.venv/
+__pycache__/
+pycache/
+.pytest_cache/
+htmlcov/
+approved_files/*.received.txt
