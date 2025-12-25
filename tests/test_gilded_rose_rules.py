@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import unittest
-
 from gilded_rose import Item, GildedRose
 
 
@@ -8,7 +7,6 @@ def update_days(items, days: int):
     app = GildedRose(items)
     for _ in range(days):
         app.update_quality()
-
 
 class TestGildedRoseBusinessRules(unittest.TestCase):
 
